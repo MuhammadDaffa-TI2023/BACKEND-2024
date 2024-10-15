@@ -13,7 +13,7 @@ class Animal
         $this->animals = $data;
     }
 
-    # method index - menampilkan data animals
+    # method index - menampilkan data animal
     public function index()
     {
         # gunakan foreach untuk menampilkan data animals (array)
