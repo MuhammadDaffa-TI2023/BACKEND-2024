@@ -37,7 +37,7 @@ class Animal
         if (isset($this->animals[$index])) {
             $this->animals[$index] = $data;
         } else {
-            echo "Index tidak ditemukan.<br>";
+            echo "Animal Tidak Tersedia.<br>";
         }
     }
 
