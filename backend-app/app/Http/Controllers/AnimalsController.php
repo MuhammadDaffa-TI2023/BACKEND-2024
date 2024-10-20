@@ -10,14 +10,18 @@ class AnimalsController extends Controller
     private $animals = ['kucing', 'ayam', 'ikan'];
 
     public function index() {
-        // Menampilkan data animals
-        return response()->json($this->animals);
+        // Menampilkan data animals menggunakan foreach
+        $animalList = [];
+        foreach ($this->animals as $animal) {
+            $animalList[] = $animal;
+        }
+        return response()->json($animalList);
     }
 
     public function store(Request $request) {
-        // Menambahkan hewan baru
-        $newAnimals = ['musang'];
-        $this->animals = array_merge($this->animals, $newAnimals);
+        // Menambahkan hewan baru menggunakan array_push
+        $newAnimal = 'musang';
+        array_push($this->animals, $newAnimal);
         return response()->json($this->animals);
     }
 
@@ -37,14 +41,15 @@ class AnimalsController extends Controller
             return response()->json($this->animals);
         } else {
             // Jika ID tidak ditemukan, kembalikan pesan error
-            return response()->json(['message' => 'ID tidak ditemukan'],404);
+            return response()->json(['message' => 'ID tidak ditemukan'], 404);
+        }
     }
-    }
+
     public function delete($id) {
-        // Menghapus data hewan
-        if ($id == 2) { // Misalkan id 3 adalah 'musang'
-            unset($this->animals[$id]);
-            $this->animals = array_values($this->animals); // Re-indexing array
+        // Menghapus data hewan menggunakan array_splice
+        if (isset($this->animals[$id])) {
+            // Menghapus elemen berdasarkan indeks
+            array_splice($this->animals, $id, 1); 
         }
         return response()->json($this->animals);
     }
