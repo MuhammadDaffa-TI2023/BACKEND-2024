@@ -32,7 +32,8 @@ class AnimalsController extends Controller
     
         // Pastikan ID yang diminta ada dalam array
         if (isset($this->animals[$id])) {
-            $this->animals[$id] = $animal; // Mengupdate hewan dengan data dari request
+            // Mengupdate hewan dengan data dari request
+            $this->animals[$id] = $animal; 
             return response()->json($this->animals);
         } else {
             // Jika ID tidak ditemukan, kembalikan pesan error
