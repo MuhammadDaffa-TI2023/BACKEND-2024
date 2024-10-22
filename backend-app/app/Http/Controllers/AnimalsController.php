@@ -31,7 +31,7 @@ class AnimalsController extends Controller
     
         // Cek apakah data hewan dari request null atau tidak
         if (is_null($animal)) {
-            return response()->json(['message' => 'Data hewan tidak boleh kosong'], 400);
+            return response()->json(['message' => 'Data Animal tidak boleh kosong'], 400);
         }
     
         // Pastikan ID yang diminta ada dalam array
@@ -41,7 +41,7 @@ class AnimalsController extends Controller
             return response()->json($this->animals);
         } else {
             // Jika ID tidak ditemukan, kembalikan pesan error
-            return response()->json(['message' => 'ID tidak ditemukan'], 404);
+            return response()->json(['message' => 'Animal tidak ditemukan'], 404);
         }
     }
 
