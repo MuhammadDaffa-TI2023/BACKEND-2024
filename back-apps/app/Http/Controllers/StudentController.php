@@ -43,7 +43,7 @@ class StudentController extends Controller
     }
 
     public function update(Request $request, $id) {
-        // Find the student by ID
+        
         $student = Student::find($id);
         
         if (!$student) {
@@ -52,7 +52,7 @@ class StudentController extends Controller
             ], 404);
         }
 
-        // Validate the request
+
         $validator = Validator::make($request->all(), [
             'nama' => 'sometimes|required|string|max:255',
             'nim' => 'sometimes|required|string|max:20|unique:students,nim,' . $student->id,
@@ -67,7 +67,7 @@ class StudentController extends Controller
             ], 422);
         }
 
-        // Update the student
+        //update Student
         $student->update($validator->validated());
 
         return response()->json([
@@ -77,7 +77,7 @@ class StudentController extends Controller
     }
     
     public function destroy($id) {
-        // Mencari mahasiswa berdasarkan ID
+        // Mencari Student berdasarkan ID
         $student = Student::find($id);
         
         if (!$student) {
@@ -86,7 +86,7 @@ class StudentController extends Controller
             ], 404);
         }
     
-        // Menghapus mahasiswa
+        // Menghapus student
         $student->delete();
     
         return response()->json([
