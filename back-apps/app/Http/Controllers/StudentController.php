@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Student;
+
 use Illuminate\Support\Facades\Validator;
+
+
+
 
 class StudentController extends Controller
 {
@@ -28,34 +32,32 @@ class StudentController extends Controller
         return response()->json($data, 200);
     }
     
-    public function store(Request $request) {
-        // Validasi data yang wajib diisi
-        $request->validate([
-            'nama' => 'required|string|max:255',
-            'nim' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'jurusan' => 'required|string|max:255',
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required',
+            'nim' => 'numeric|required',
+            'email' => 'email|required',
+            'jurusan' => 'required',
         ]);
-    
-        // Menangkap data dari request
-        $input = [
-            'nama' => $request->nama,
-            'nim' => $request->nim,
-            'email' => $request->email,
-            'jurusan' => $request->jurusan
-        ];
-    
-        // Menggunakan model Student untuk menyimpan data
-        $student = Student::create($input);
-    
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Validation errors',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $student = Student::create($request->all());
+
         $data = [
             'message' => 'Student is created successfully',
             'data' => $student,
         ];
-    
-        // Mengembalikan data dalam format JSON dengan kode status 201
+
         return response()->json($data, 201);
     }
+
     
     public function update(Request $request, $id) {
         // Cari student berdasarkan id
@@ -63,7 +65,7 @@ class StudentController extends Controller
     
         if ($student) {
             // Validasi data yang dikirim dalam request
-            $request->validate([
+            $validated = $request->validate([
                 'nama' => 'nullable|string|max:255',
                 'nim' => 'nullable|string|max:255',
                 'email' => 'nullable|email|max:255',
@@ -97,6 +99,7 @@ class StudentController extends Controller
             return response()->json($data, 404);
         }
     }
+    
     
 
     public function destroy($id) {
