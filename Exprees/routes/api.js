@@ -4,16 +4,19 @@ const router = express.Router();
 // Mengimpor controller siswa
 const StudentController = require("../controllers/StudentController");
 
-// Menampilkan semua siswa
+// Endpoint untuk menampilkan semua siswa
 router.get("/students", StudentController.index);
 
-// Menambahkan siswa baru
+// Endpoint untuk menampilkan satu siswa berdasarkan ID
+router.get("/students/:id", StudentController.show);
+
+// Endpoint untuk menambahkan siswa baru
 router.post("/students", StudentController.store);
 
-// Mengedit siswa berdasarkan ID
+// Endpoint untuk mengedit siswa berdasarkan ID
 router.put("/students/:id", StudentController.update);
 
-// Menghapus siswa berdasarkan ID
+// Endpoint untuk menghapus siswa berdasarkan ID
 router.delete("/students/:id", StudentController.destroy);
 
 module.exports = router;
