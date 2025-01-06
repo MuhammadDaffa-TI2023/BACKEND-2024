@@ -1,4 +1,3 @@
-// Data siswa
 let students = [
     { id: 1, nama: "Daffa" },
     { id: 2, nama: "Gihal" },

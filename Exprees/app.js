@@ -1,22 +1,19 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 const app = express();
+const studentRouter = require("./routes/api"); 
 
-// Mengimpor routing API
-const studentRoutes = require("./routes/api"); // Ensure this path is correct
 
-// Middleware untuk parsing JSON
-app.use(express.json());
+app.use(bodyParser.json());
 
-// Menambahkan routing untuk /students (tanpa /api)
-app.use("/api", studentRoutes); // Using prefix /api for all routes in api.js
 
-// Halaman utama (optional)
-app.get("/", (req, res) => {
-    res.send("Hello, Express!");
-});
+app.use(bodyParser.urlencoded({ extended: true }));
 
-// Menjalankan server
-const port = 3000;
-app.listen(port, () => {
-    console.log(`Server berjalan di http://localhost:${port}`);
+
+app.use("/api", studentRouter);
+
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
